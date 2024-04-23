@@ -1,0 +1,3 @@
+[submodule "src/stm32/ThirdParty/tm1637"]
+	path = src/stm32/ThirdParty/tm1637
+	url = git@github.com:smaroukis/tm1637.git
