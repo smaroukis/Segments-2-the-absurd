@@ -4,3 +4,10 @@
 **/build
 **.lst
 **.o 
+
+# Specific files
+src/stm32/.dependencygraph
+
+src/stm32/.vscode/*
+!src/stm32/.vscode/c_cpp_properties*.json
+!src/stm32/.vscode/tasks.json
