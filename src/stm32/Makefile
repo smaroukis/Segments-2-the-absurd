@@ -61,7 +61,8 @@ Core/Src/system_stm32f3xx.c \
 Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 Core/Src/gpio.c \
-Core/Src/usart.c
+Core/Src/usart.c \
+ThirdParty/tm1637/tm1637.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -126,7 +127,8 @@ C_INCLUDES =  \
 -IDrivers/STM32F3xx_HAL_Driver/Inc \
 -IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F3xx/Include \
--IDrivers/CMSIS/Include
+-IDrivers/CMSIS/Include \
+-IThirdParty/tm1637
 
 
 # compile gcc flags

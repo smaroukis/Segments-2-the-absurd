@@ -20,6 +20,7 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+#include "tm1637.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -33,6 +34,14 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+// TODO check pins
+#define TM1637_CLK_PORT GPIOB
+#define TM1637_CLK_PIN GPIO_PIN_8
+#define TM1637_DIO_PORT GPIOB
+#define TM1637_DIO_PIN GPIO_PIN_9
+
+#define SET_SEGMENTS 1
+#define RESET_SEGMENTS 0
 
 /* USER CODE END PD */
 
@@ -42,6 +51,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+tm1637_t tm1637;
 
 /* USER CODE BEGIN PV */
 
@@ -89,6 +99,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  tm1637_init(&tm1637, TM1637_CLK_PORT, TM1637_CLK_PIN, TM1637_DIO_PORT, TM1637_DIO_PIN);
 
   /* USER CODE END 2 */
 
@@ -96,8 +107,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    bool toggleEnableDisable;
+
     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
     HAL_Delay(500);
+
+    // TM1637 Code
+    tm1637_fill(&tm1637, toggleEnableDisable = !toggleEnableDisable);
+    HAL_Delay(500);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
