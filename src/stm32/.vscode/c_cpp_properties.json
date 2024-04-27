@@ -47,11 +47,11 @@
             "name": "STM32F303",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/ThirdParty/tm1637",
                 "${workspaceFolder}/Core/Inc",
                 "${workspaceFolder}/Drivers/STM32F3xx_HAL_Driver/Inc",
                 "${workspaceFolder}/Drivers/CMSIS/Include",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F3xx/Include",
+                "${workspaceFolder}/ThirdParty/tm1637",
                 "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/11.3.1/include",
                 "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/11.3.1/include-fixed",
                 "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/arm-none-eabi/include/c++/11.3.1",
@@ -72,11 +72,12 @@
             "cppStandard": "c++20",
             "browse": {
                 "path": [
-                    "${workspaceFolder}",
+                    "${workspaceFolder}/**",
                     "${workspaceFolder}/Core/Inc",
                     "${workspaceFolder}/Drivers/STM32F3xx_HAL_Driver/Inc",
                     "${workspaceFolder}/Drivers/CMSIS/Include",
                     "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F3xx/Include",
+                    "${workspaceFolder}/ThirdParty/tm1637",
                     "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/11.3.1/include",
                     "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/11.3.1/include-fixed",
                     "/opt/ST/STM32CubeCLT/GNU-tools-for-STM32/arm-none-eabi/include/c++/11.3.1/",
