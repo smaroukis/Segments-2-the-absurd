@@ -21,6 +21,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "tm1637.h"
+#include "tm1637_helpers.c"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -105,17 +106,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  bool toggleEnableDisable;
+  int pos = 0;
+  int dir = 1;
   while (1)
   {
-    bool toggleEnableDisable;
-
     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
-    HAL_Delay(500);
 
     // TM1637 Code
-    tm1637_fill(&tm1637, toggleEnableDisable = !toggleEnableDisable);
-    HAL_Delay(500);
+    // tm1637_fill(&tm1637, toggleEnableDisable = !toggleEnableDisable);
+    // display_ex3(&tm1637); 
+    display_fade(&tm1637);
 
     /* USER CODE END WHILE */
 
