@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "User_Segments2TheAbsurd")(type "KiCad")(uri "${KIPRJMOD}/02-Symbols/User_Segments2TheAbsurd.kicad_sym")(options "")(descr ""))
+)
