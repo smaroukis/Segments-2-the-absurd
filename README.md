@@ -10,3 +10,12 @@ In the MCU directory i.e. `src/stm32` run `make flash`, see Makefile and VSCode 
 
 Update the submodule _within the submodule directory_:
 - `git fetch` && `git merge upstream/main`
+
+
+# Revision History
+
+## 2024-07-13 - Prototype (v-alpha) Hardware Finished
+- __note kicad files and production gerbers are not in sync at this point__
+- cleaned up git status in preparation for firmware development
+- note at this point some edits were made to the kicad files that make it out of sync with the production file from commit #(TODO)
+- moved prototype datasheets into a specific folder `.../2024-05-27-v-alpha`

@@ -5,9 +5,16 @@
 **.lst
 **.o 
 
+# Kicad backups
+kicad/segments-2-the-absurd-backups/
+
 # Specific files
 src/stm32/.dependencygraph
 
 src/stm32/.vscode/*
 !src/stm32/.vscode/c_cpp_properties*.json
 !src/stm32/.vscode/tasks.json
+
+# To add in later, leave off for now (i.e. datasheets, etc)
+kicad/00-Assets-Datasheets/
+assets/
