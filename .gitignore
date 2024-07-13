@@ -16,5 +16,4 @@ src/stm32/.vscode/*
 !src/stm32/.vscode/tasks.json
 
 # To add in later, leave off for now (i.e. datasheets, etc)
-kicad/00-Assets-Datasheets/
 assets/
