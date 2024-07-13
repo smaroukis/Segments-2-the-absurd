@@ -106,7 +106,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  bool toggleEnableDisable;
+  bool toggleFill = 1;
   int pos = 0;
   int dir = 1;
   while (1)
@@ -114,9 +114,10 @@ int main(void)
     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
     // TM1637 Code
-    // tm1637_fill(&tm1637, toggleEnableDisable = !toggleEnableDisable);
-    // display_ex3(&tm1637); 
-    display_fade(&tm1637);
+   tm1637_fill(&tm1637, toggleFill = !toggleFill);
+    // display_LOAD(&tm1637); 
+    HAL_Delay(1000);
+    // display_fade_all(&tm1637);
 
     /* USER CODE END WHILE */
 

@@ -1,4 +1,6 @@
 *.DS_Store
+.vscode/settings.json
+src/stm32/.project
 
 # Ignore Binaries, Object Files and Linker Scripts (should be built locally)
 **/build
