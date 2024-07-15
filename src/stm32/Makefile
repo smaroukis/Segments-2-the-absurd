@@ -10,12 +10,41 @@
 #   2015-07-22 - first version
 # ------------------------------------------------
 
+# Commmand line arguments
+# MCU_FAMILY=F3
+
 
 ######################################
 # target
 ######################################
-TARGET = template-nucleo-cubemx
+# Notes: MCU_MODEL should match the prepocessor definition e.g. STM32F303xE
+# MCU_FAM should match as used in the HAL driver paths e.g. STM32F3xx
+# default family
+MCU_FAMILY ?= F3
+ifeq ($(MCU_FAMILY),C0)
+	MCU_FAMILY_L = $(shell echo $(MCU_FAMILY) | tr A-Z a-z)
+	MCU_FAM_FULL = STM32$(MCU_FAMILY)xx
+	MCU_MODEL = C011x6 # TODO update to match HAL CDEfines / cubemx
+	MCU_CDEFINES = STM32$(MCU_MODEL)
+	MCU_SPEC = cortex-m0
+	# MCU_ASM_SOURCES = startup_stm32f303xe.s
+	# OPENOCD_TARGET_CFG = stm32f3x.cfg
+	# MCU_LDSCRIPT = STM32F303RETx_FLASH.ld
+else ifeq ($(MCU_FAMILY),F3)
+	MCU_FAMILY_L = $(shell echo $(MCU_FAMILY) | tr A-Z a-z)
+	MCU_FAM_FULL = STM32$(MCU_FAMILY)xx
+	MCU_MODEL = F303xE
+	MCU_CDEFINES = STM32$(MCU_MODEL)
+	MCU_SPEC = cortex-m4
+	MCU_ASM_SOURCES = startup_stm32f303xe.s
+	OPENOCD_TARGET_CFG = stm32f3x.cfg
+	MCU_LDSCRIPT = STM32F303RETx_FLASH.ld
+else
+  $(error Unsupported MCU_FAMILY: $(MCU_FAMILY))
+endif
 
+
+TARGET = target_$(MCU_MODEL)
 
 ######################################
 # building variables
@@ -30,7 +59,7 @@ OPT = -Og
 # paths
 #######################################
 # Build path
-BUILD_DIR = build
+BUILD_DIR = build/$(MCU_FAM_FULL)
 
 ######################################
 # source
@@ -38,26 +67,26 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Core/Src/main.c \
-Core/Src/stm32f3xx_it.c \
-Core/Src/stm32f3xx_hal_msp.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dma.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pwr_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_flash_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c \
-Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_exti.c \
-Core/Src/system_stm32f3xx.c \
+Core/Src/stm32$(MCU_FAMILY_L)xx_it.c \
+Core/Src/stm32$(MCU_FAMILY_L)xx_hal_msp.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_tim.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_tim_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_uart.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_uart_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_rcc.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_rcc_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_gpio.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_dma.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_cortex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_pwr.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_pwr_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_flash.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_flash_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_i2c.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_i2c_ex.c \
+Drivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Src/stm32$(MCU_FAMILY_L)xx_hal_exti.c \
+Core/Src/system_stm32$(MCU_FAMILY_L)xx.c \
 Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 Core/Src/gpio.c \
@@ -66,11 +95,10 @@ ThirdParty/tm1637/tm1637.c
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32f303xe.s
+$(MCU_ASM_SOURCES)
 
 # ASM sources
 ASMM_SOURCES = 
-
 
 #######################################
 # binaries
@@ -96,14 +124,16 @@ BIN = $(CP) -O binary -S
 #######################################
 # CFLAGS
 #######################################
-# cpu
-CPU = -mcpu=cortex-m4
+CPU = -mcpu=$(MCU_SPEC)
 
-# fpu
-FPU = -mfpu=fpv4-sp-d16
-
-# float-abi
-FLOAT-ABI = -mfloat-abi=hard
+# Update FPU and FLOAT-ABI only for Cortex-M4
+ifeq ($(MCU_SPEC),cortex-m4)
+  FPU = -mfpu=fpv4-sp-d16
+  FLOAT-ABI = -mfloat-abi=hard
+else
+  FPU =
+  FLOAT-ABI = -mfloat-abi=soft
+endif
 
 # mcu
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
@@ -115,7 +145,7 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F303xE
+-D$(MCU_CDEFINES)
 
 
 # AS includes
@@ -124,9 +154,9 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -ICore/Inc \
--IDrivers/STM32F3xx_HAL_Driver/Inc \
--IDrivers/STM32F3xx_HAL_Driver/Inc/Legacy \
--IDrivers/CMSIS/Device/ST/STM32F3xx/Include \
+-IDrivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Inc \
+-IDrivers/STM32$(MCU_FAMILY)xx_HAL_Driver/Inc/Legacy \
+-IDrivers/CMSIS/Device/ST/STM32$(MCU_FAMILY)xx/Include \
 -IDrivers/CMSIS/Include \
 -IThirdParty/tm1637
 
@@ -149,7 +179,7 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = STM32F303RETx_FLASH.ld
+LDSCRIPT = $(MCU_LDSCRIPT)
 
 # libraries
 LIBS = -lc -lm -lnosys 
@@ -203,11 +233,25 @@ version:
 	@echo "GCC version:"
 	@$(CC) --version | sed 's/^/\t/'
 
+
+#######################################
+# get config
+#######################################
+config:
+	@echo "Current configuration:"
+	@echo "MCU Family: $(MCU_FAMILY)"
+	@echo "MCU Family (lowercase): $(MCU_FAM_L)"
+	@echo "MCU Model: $(MCU_MODEL)"
+	@echo "MCU Spec: $(MCU_SPEC)"
+	@echo "OpenOCD Target Config: target/$(OPENOCD_TARGET_CFG)"
+
 #######################################
 # flash via openocd
 #######################################
 flash: all
-	openocd -f interface/stlink.cfg -f target/stm32f3x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
+	openocd -f interface/stlink.cfg -f target/$(OPENOCD_TARGET_CFG) -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
+
+# TODO print info on mcu being used
 
 
 #######################################

@@ -116,7 +116,7 @@ int main(void)
     // TM1637 Code
    tm1637_fill(&tm1637, toggleFill = !toggleFill);
     // display_LOAD(&tm1637); 
-    HAL_Delay(500);
+    HAL_Delay(1000);
     // display_fade_all(&tm1637);
 
     /* USER CODE END WHILE */
